@@ -9,6 +9,33 @@ interface Context {
     }>;
 }
 
+export async function GET(request: Request, context: Context) {
+    try {
+        await dbConnect();
+        const { id } = await context.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return NextResponse.json({ error: 'Invalid Product ID format' }, { status: 400 });
+        }
+
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+        }
+
+        return NextResponse.json(product, { status: 200 });
+
+    } catch (error: unknown) {
+        let errorMessage = 'An error occurred during fetching product detail.';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        console.error('API Error fetching product:', errorMessage);
+        return NextResponse.json({ error: 'Failed to fetch product', details: errorMessage }, { status: 500 });
+    }
+}
+
 export async function PUT(request: Request, context: Context) {
     try {
         await dbConnect();

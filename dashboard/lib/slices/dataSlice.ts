@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// Tipos de gráfico posibles
+type GraphType = 'bar' | 'line' | 'pie' | 'doughnut' | 'radar';
+
 interface FilterState {
     dateRange: string;
     category: string;
-    graphType: 'bar' | 'line' | 'pie';
+    graphType: GraphType;
 }
 
 const initialState: FilterState = {
@@ -22,7 +25,7 @@ const dataSlice = createSlice({
         setCategory: (state, action: PayloadAction<string>) => {
             state.category = action.payload;
         },
-        setGraphType: (state, action: PayloadAction<'bar' | 'line' | 'pie'>) => {
+        setGraphType: (state, action: PayloadAction<GraphType>) => {
             state.graphType = action.payload;
         },
     },
