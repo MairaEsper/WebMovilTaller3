@@ -5,16 +5,15 @@ import { useRouter } from 'next/navigation';
 
 export default function AddProductForm() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false); // Para abrir/cerrar el formulario
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   
-  // Estado inicial del formulario
   const [formData, setFormData] = useState({
     title: '',
     price: '',
-    category: 'electronics', // Valor por defecto
+    category: 'electronics',
     description: '',
-    image: '', // Aquí pegaremos una URL de imagen
+    image: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -36,15 +35,15 @@ export default function AddProductForm() {
         },
         body: JSON.stringify({
             ...formData,
-            price: Number(formData.price) // Aseguramos que el precio sea número
+            price: Number(formData.price)
         }),
       });
 
       if (res.ok) {
         alert('Producto creado exitosamente!');
-        setFormData({ title: '', price: '', category: 'electronics', description: '', image: '' }); // Limpiar form
-        setIsOpen(false); // Cerrar modal
-        window.location.reload(); // Recargar la página para ver el nuevo producto en la tabla
+        setFormData({ title: '', price: '', category: 'electronics', description: '', image: '' });
+        setIsOpen(false);
+        window.location.reload();
       } else {
         const errorData = await res.json();
         alert(`Error: ${errorData.message}`);
@@ -59,7 +58,6 @@ export default function AddProductForm() {
 
   return (
     <div className="mb-6">
-      {/* Botón para abrir el formulario */}
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
@@ -69,7 +67,6 @@ export default function AddProductForm() {
         </button>
       )}
 
-      {/* El Formulario (Se muestra solo si isOpen es true) */}
       {isOpen && (
         <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 mt-4 animate-fadeIn">
           <div className="flex justify-between items-center mb-4">
@@ -79,7 +76,6 @@ export default function AddProductForm() {
 
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             
-            {/* Título */}
             <div className="col-span-2 md:col-span-1">
               <label className="block text-sm font-medium text-gray-700">Título</label>
               <input 
@@ -88,7 +84,6 @@ export default function AddProductForm() {
               />
             </div>
 
-            {/* Precio */}
             <div className="col-span-2 md:col-span-1">
               <label className="block text-sm font-medium text-gray-700">Precio</label>
               <input 
@@ -97,7 +92,6 @@ export default function AddProductForm() {
               />
             </div>
 
-            {/* Categoría */}
             <div className="col-span-2 md:col-span-1">
               <label className="block text-sm font-medium text-gray-700">Categoría</label>
               <select 
@@ -111,7 +105,6 @@ export default function AddProductForm() {
               </select>
             </div>
 
-            {/* URL Imagen */}
             <div className="col-span-2 md:col-span-1">
               <label className="block text-sm font-medium text-gray-700">URL de Imagen</label>
               <input 
@@ -120,7 +113,6 @@ export default function AddProductForm() {
               />
             </div>
 
-            {/* Descripción */}
             <div className="col-span-2">
               <label className="block text-sm font-medium text-gray-700">Descripción</label>
               <textarea 
@@ -129,7 +121,6 @@ export default function AddProductForm() {
               />
             </div>
 
-            {/* Botones de Acción */}
             <div className="col-span-2 flex justify-end gap-3 mt-2">
               <button 
                 type="button" onClick={() => setIsOpen(false)}
