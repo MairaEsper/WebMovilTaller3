@@ -1,6 +1,7 @@
 import FilterControls from '@/components/FilterControls';
 import DynamicChart from '@/components/DynamicChart';
 import ProductTable from '@/components/ProductTable';
+import AddProductForm from '@/components/AddProductForm';
 
 export default function Home() {
   return (
@@ -9,6 +10,8 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-gray-800">Dashboard de Productos DataMobile</h1>
         <p className="text-gray-600">Visualización interactiva en tiempo real.</p>
       </header>
+
+      <AddProductForm />
       
       <FilterControls />
       <div className="grid grid-cols-1 gap-6"> 
