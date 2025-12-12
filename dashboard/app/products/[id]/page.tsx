@@ -33,13 +33,16 @@ async function getProduct(id: string): Promise<Product | null> {
 }
 
 interface ProductDetailPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-    const product = await getProduct(params.id);
+export default async function ProductDetailPage(props: ProductDetailPageProps) {
+    const params = await props.params; // <--- Esperamos a que se resuelva la promesa
+    const { id } = params;
+    
+    const product = await getProduct(id);
 
     if (!product) {
         notFound();
@@ -53,7 +56,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             </header>
 
             <div className="bg-white shadow-xl rounded-lg p-6 max-w-4xl mx-auto">
-                {/* Asegurar que la imagen sea responsiva */}
                 {product.image && (
                     <img 
                         src={product.image} 
@@ -70,12 +72,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                     <p><strong>Fecha de Creación:</strong> {new Date(product.createdAt).toLocaleDateString()}</p>
                 </div>
                 
-                {/* Aquí podrían añadir componentes para edición/eliminación (PUT/DELETE) */}
                 <div className="mt-6 flex gap-4">
-                    {/* Botón de ejemplo para volver */}
                     <a href="/" className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Volver al Dashboard</a>
-                    {/* Botón de ejemplo para editar */}
-                    <button className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Editar Producto</button>
                 </div>
             </div>
         </div>

@@ -141,9 +141,9 @@ const DynamicChart: React.FC = () => {
     }
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-xl w-full h-80" >
-            <h3 className="text-xl font-semibold mb-4">Visualización de Productos por Categoría ({graphType.toUpperCase()})</h3>
-            <div className="h-full w-full">
+        <div className="bg-white p-6 rounded-lg shadow-xl w-full h-96 flex flex-col" >
+            <h3 className="text-xl font-semibold mb-4 shrink-0">Visualización de Productos por Categoría ({graphType.toUpperCase()})</h3>
+            <div className="flex-1 w-full min-h-0 relative">
                 {ChartComponent}
             </div>
         </div >
