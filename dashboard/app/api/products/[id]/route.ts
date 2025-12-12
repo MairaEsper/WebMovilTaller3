@@ -4,15 +4,15 @@ import Product from '@/lib/models/Product';
 import mongoose from 'mongoose';
 
 interface Context {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 export async function PUT(request: Request, context: Context) {
     try {
         await dbConnect();
-        const { id } = context.params;
+        const { id } = await context.params;
         const body = await request.json();
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -44,7 +44,7 @@ export async function PUT(request: Request, context: Context) {
 export async function DELETE(request: Request, context: Context) {
     try {
         await dbConnect();
-        const { id } = context.params;
+        const { id } = await context.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json({ error: 'Invalid Product ID format' }, { status: 400 });
