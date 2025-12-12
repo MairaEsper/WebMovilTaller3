@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Tipos de gráfico posibles
 type GraphType = 'bar' | 'line' | 'pie' | 'doughnut' | 'radar';
 
 interface FilterState {

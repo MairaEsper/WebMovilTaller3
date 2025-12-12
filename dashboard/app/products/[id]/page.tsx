@@ -1,4 +1,3 @@
-// app/products/[id]/page.tsx
 import { notFound } from 'next/navigation';
 
 interface Product {
@@ -11,11 +10,9 @@ interface Product {
     createdAt: string;
 }
 
-// Función para obtener los datos de un producto específico
 async function getProduct(id: string): Promise<Product | null> {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products/${id}`, {
-             // Cachear si es necesario, o no-cache para datos en tiempo real
              cache: 'no-store' 
         });
 
@@ -39,7 +36,7 @@ interface ProductDetailPageProps {
 }
 
 export default async function ProductDetailPage(props: ProductDetailPageProps) {
-    const params = await props.params; // <--- Esperamos a que se resuelva la promesa
+    const params = await props.params;
     const { id } = params;
     
     const product = await getProduct(id);

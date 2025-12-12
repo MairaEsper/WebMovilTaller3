@@ -1,15 +1,13 @@
-// components/FilterControls.tsx
 'use client';
 
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'; 
 import { setDateRange, setCategory, setGraphType } from '@/lib/slices/dataSlice';
 
-// Definición de tipos de gráfico (debe coincidir con dataSlice.ts)
 type GraphType = 'bar' | 'line' | 'pie' | 'doughnut' | 'radar';
 
 const dateOptions = ['last 7 days', 'last 30 days', 'all time'];
-const categoryOptions = ['all', 'electronics', 'apparel', 'food']; // Ejemplo, ajusten a sus categorías
+const categoryOptions = ['all', 'electronics', 'apparel', 'food'];
 
 const FilterControls: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -45,12 +43,10 @@ const FilterControls: React.FC = () => {
                 </select>
             </div>
 
-            {/* CAMBIO CLAVE AQUÍ: Se añaden las dos opciones de gráfico restantes */}
             <div className="flex-1">
                 <label htmlFor="graphType" className="block text-sm font-medium text-gray-700">Tipo de Gráfico</label>
                 <select
                     id="graphType"
-                    // Aseguramos que el valor se tipifique como GraphType
                     onChange={(e) => dispatch(setGraphType(e.target.value as GraphType))} 
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     value={graphType}

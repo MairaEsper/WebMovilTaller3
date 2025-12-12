@@ -1,8 +1,7 @@
-// components/ProductTable.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useAppSelector } from '@/lib/hooks'; // Necesitan crear este archivo
+import { useAppSelector } from '@/lib/hooks';
 
 interface Product {
     _id: string;
@@ -19,19 +18,14 @@ const ProductTable: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Lógica de fetch y filtrado (similar a DynamicChart)
         const fetchData = async () => {
             setLoading(true);
             try {
                 const res = await fetch('/api/products');
                 const allProducts: Product[] = await res.json();
-                
-                // Filtrado simple por categoría
                 const filteredProducts = allProducts.filter(p => 
                     category === 'all' || p.category.toLowerCase() === category.toLowerCase()
                 );
-                
-                // Nota: Implementar ordenamiento dinámico aquí o en la API 
                 setProducts(filteredProducts);
             } catch (error) {
                 console.error("Error fetching products for table:", error);
